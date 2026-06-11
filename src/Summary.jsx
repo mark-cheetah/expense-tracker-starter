@@ -22,7 +22,7 @@ function Summary({ transactions }) {
       <div className="summary-card">
         <h3>Balance</h3>
         <p className={`balance-amount ${balance >= 0 ? 'positive' : 'negative'}`}>
-          ${balance.toLocaleString()}
+          {balance < 0 ? '-' : ''}${Math.abs(balance).toLocaleString()}
         </p>
       </div>
     </div>
