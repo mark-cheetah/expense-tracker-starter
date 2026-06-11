@@ -1,160 +1,325 @@
-.app {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-h1 {
-  margin-bottom: 4px;
+:root {
+  --bg: #0b0c0f;
+  --surface: #13151a;
+  --surface-2: #1a1c23;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.11);
+  --text: #dde1ea;
+  --text-muted: #4e5568;
+  --income: #10b981;
+  --expense: #f43f5e;
+  --accent: #818cf8;
+  --radius: 10px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ── Header ── */
+.app-header {
+  margin-bottom: 44px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 24px;
+}
+
+.app-header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 5px;
 }
 
 .subtitle {
-  margin-bottom: 20px;
-  color: #666;
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
+/* ── Summary ── */
 .summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .summary-card {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 14px;
-  background: #fff;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
 }
 
 .summary-card h3 {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
 }
 
 .income-amount {
-  color: green;
-  font-size: 20px;
-  font-weight: bold;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--income);
+  letter-spacing: -1px;
 }
 
 .expense-amount {
-  color: red;
-  font-size: 20px;
-  font-weight: bold;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--expense);
+  letter-spacing: -1px;
 }
 
 .balance-amount {
-  font-size: 20px;
-  font-weight: bold;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -1px;
+  color: var(--text);
 }
 
+.balance-amount.positive { color: var(--income); }
+.balance-amount.negative { color: var(--expense); }
+
+/* ── Chart ── */
+.chart {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 22px 10px;
+  margin-bottom: 16px;
+}
+
+.chart h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ── Form ── */
 .add-transaction {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 24px;
-  background: #fff;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 16px;
 }
 
 .add-transaction h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 form {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 form input,
 form select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  padding: 9px 12px;
+  outline: none;
+  transition: border-color 0.15s;
 }
 
-form input[type="text"] {
-  flex: 2;
+form input:focus,
+form select:focus {
+  border-color: var(--accent);
 }
 
-form input[type="number"] {
-  flex: 1;
+form input::placeholder {
+  color: var(--text-muted);
 }
+
+form input[type="text"] { flex: 2; min-width: 140px; }
+form input[type="number"] { flex: 1; min-width: 90px; }
 
 form select {
   flex: 1;
+  min-width: 110px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234e5568' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
 }
 
 form button {
-  padding: 8px 20px;
-  background: #333;
+  background: var(--accent);
   color: #fff;
   border: none;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 22px;
   cursor: pointer;
-  font-size: 14px;
+  transition: opacity 0.15s;
+  white-space: nowrap;
 }
 
+form button:hover { opacity: 0.82; }
+
+/* ── Transaction List ── */
 .transactions {
-  margin-bottom: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 16px;
+}
+
+.transactions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .transactions h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .filters {
   display: flex;
   gap: 8px;
-  margin-bottom: 12px;
 }
 
 .filters select {
-  padding: 6px;
-  border: 1px solid #ccc;
-  font-size: 13px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  padding: 6px 26px 6px 10px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234e5568' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color 0.15s;
 }
+
+.filters select:focus { border-color: var(--accent); }
 
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-thead {
-  background: #f5f5f5;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
-}
-
 th {
-  font-size: 12px;
-  color: #888;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 10px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
 }
 
-.chart {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 24px;
-  background: #fff;
+th:first-child { padding-left: 0; }
+th:last-child { padding-right: 0; text-align: right; }
+th:nth-child(4) { text-align: right; }
+
+td {
+  padding: 11px 10px;
+  font-size: 13px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
 }
 
-.chart h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+td:first-child { padding-left: 0; color: var(--text-muted); font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
+td:last-child { padding-right: 0; text-align: right; }
+td:nth-child(4) { text-align: right; }
+
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: var(--surface-2); }
+
+.category-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
 }
+
+.td-amount {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.td-amount.income { color: var(--income); }
+.td-amount.expense { color: var(--expense); }
 
 .delete-btn {
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-family: 'DM Sans', sans-serif;
   padding: 4px 10px;
-  background: #eee;
-  border: 1px solid #ccc;
   cursor: pointer;
-  font-size: 12px;
-  color: #333;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.delete-btn:hover {
+  border-color: var(--expense);
+  color: var(--expense);
 }

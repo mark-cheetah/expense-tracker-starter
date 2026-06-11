@@ -8,20 +8,22 @@ function Summary({ transactions }) {
     .reduce((sum, t) => sum + t.amount, 0);
 
   const balance = totalIncome - totalExpenses;
-  
+
   return (
     <div className="summary">
       <div className="summary-card">
         <h3>Income</h3>
-        <p className="income-amount">${totalIncome}</p>
+        <p className="income-amount">${totalIncome.toLocaleString()}</p>
       </div>
       <div className="summary-card">
         <h3>Expenses</h3>
-        <p className="expense-amount">${totalExpenses}</p>
+        <p className="expense-amount">${totalExpenses.toLocaleString()}</p>
       </div>
       <div className="summary-card">
         <h3>Balance</h3>
-        <p className="balance-amount">${balance}</p>
+        <p className={`balance-amount ${balance >= 0 ? 'positive' : 'negative'}`}>
+          ${balance.toLocaleString()}
+        </p>
       </div>
     </div>
   );
